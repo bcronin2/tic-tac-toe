@@ -40,7 +40,7 @@ const playAgain = (player1, player2, boardDimension) => {
 
 const takeTurn = (currentTurn, turnCounter, board, player1, player2) => {
   const currentPlayer = currentTurn === 'X' ? player1 : player2;
-  displayMessage(`${currentPlayer}'s turn!`);
+  displayMessage(`\n${currentPlayer}'s turn!`);
   displayMessage(drawBoard(board));
   makeMove(currentTurn, turnCounter, board, player1, player2);
 };
@@ -50,7 +50,7 @@ const makeMove = (currentTurn, turnCounter, board, player1, player2) => {
   prompt([`Row number (1-${board.length})`, `Column number (1-${board[0].length})`], results => {
     const row = parseInt(results[0]);
     const col = parseInt(results[1]);
-    if (!validateCoordinates(row, col, board)) {
+    if (!validateCoordinates(row - 1, col - 1, board)) {
       makeMove(currentTurn, turnCounter, board, player1, player2);
     } else {
       board[row - 1][col - 1] = currentTurn;
@@ -60,9 +60,9 @@ const makeMove = (currentTurn, turnCounter, board, player1, player2) => {
 };
 
 const validateCoordinates = (row, col, board) => {
-  const isRowValid = row >= 1 && row <= board.length;
-  const isColValid = col >= 1 && col <= board[0].length;
-  return isRowValid && isColValid && !board[row - 1][col - 1];
+  const isRowValid = row >= 0 && row < board.length;
+  const isColValid = col >= 0 && col < board[0].length;
+  return isRowValid && isColValid && !board[row][col];
 };
 
 const endTurn = (currentTurn, turnCounter, board, player1, player2, row, col) => {
