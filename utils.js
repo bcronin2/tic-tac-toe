@@ -1,6 +1,6 @@
 const promptUtil = require('prompt');
 
-const displayMessage = console.log;
+const displayContent = console.log;
 
 const prompt = (messages, cb) => {
   promptUtil.start();
@@ -38,7 +38,7 @@ const drawBoard = board => {
     boardString += '\n';
   }
   boardString += `${horizontalBorder}\n`;
-  return boardString;
+  displayContent(boardString);
 };
 
-module.exports = { prompt, displayMessage, makeBoard, drawBoard };
+module.exports = { prompt, displayContent, makeBoard, drawBoard };

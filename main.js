@@ -1,8 +1,8 @@
-const { prompt, displayMessage, makeBoard, drawBoard } = require('./utils.js');
+const { prompt, displayContent, makeBoard, drawBoard } = require('./utils.js');
 
 const initializeSession = () => {
-  displayMessage('TIC-TAC-TOE');
-  displayMessage('-----------');
+  displayContent('TIC-TAC-TOE');
+  displayContent('-----------');
   prompt(['Player 1 (X) name', 'Player 2 (O) name', 'Board dimension'], results => {
     const [name1, name2, dimension] = results;
     const player1 = name1 ? name1 + ' (X)' : 'X';
@@ -13,7 +13,7 @@ const initializeSession = () => {
 };
 
 const endSession = () => {
-  displayMessage('Goodbye!');
+  displayContent('Goodbye!');
 };
 
 const playGame = (player1, player2, boardDimension) => {
@@ -23,7 +23,7 @@ const playGame = (player1, player2, boardDimension) => {
 
 const finishGame = (winner, player1, player2, boardDimension) => {
   const message = winner ? `${winner} won!` : 'The game was a draw!';
-  displayMessage(message);
+  displayContent(message);
   playAgain(player1, player2, boardDimension);
 };
 
@@ -40,13 +40,13 @@ const playAgain = (player1, player2, boardDimension) => {
 
 const takeTurn = (currentTurn, turnCounter, board, player1, player2) => {
   const currentPlayer = currentTurn === 'X' ? player1 : player2;
-  displayMessage(`\n${currentPlayer}'s turn!`);
-  displayMessage(drawBoard(board));
+  drawBoard(board);
+  displayContent(`\n${currentPlayer}'s turn!`);
   makeMove(currentTurn, turnCounter, board, player1, player2);
 };
 
 const makeMove = (currentTurn, turnCounter, board, player1, player2) => {
-  displayMessage('Enter a valid position for your move.');
+  displayContent('Enter a valid position for your move.');
   prompt([`Row number (1-${board.length})`, `Column number (1-${board[0].length})`], results => {
     const row = parseInt(results[0]);
     const col = parseInt(results[1]);
@@ -68,10 +68,10 @@ const validateCoordinates = (row, col, board) => {
 const endTurn = (currentTurn, turnCounter, board, player1, player2, row, col) => {
   const currentPlayer = currentTurn === 'X' ? player1 : player2;
   if (checkWinner(board, row, col)) {
-    displayMessage(drawBoard(board));
+    drawBoard(board);
     finishGame(currentPlayer, player1, player2, board.length);
   } else if (++turnCounter === board.length * board[0].length) {
-    displayMessage(drawBoard(board));
+    drawBoard(board);
     finishGame(null, player1, player2, board.length);
   } else {
     const nextTurn = currentTurn === 'X' ? 'O' : 'X';
