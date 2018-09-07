@@ -2,9 +2,12 @@ const promptUtil = require('prompt');
 
 const displayMessage = console.log;
 
-const prompt = (message, cb) => {
+const prompt = (messages, cb) => {
   promptUtil.start();
-  promptUtil.get([message], (err, result) => cb(result[message]));
+  promptUtil.get(messages, (err, results) => {
+    const vals = messages.map(message => results[message]);
+    cb(vals);
+  });
 };
 
 const makeBoard = boardDimension => {
