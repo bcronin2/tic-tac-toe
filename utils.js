@@ -23,7 +23,13 @@ const makeBoard = boardDimension => {
 
 const drawBoard = board => {
   let boardString = '\n';
+  let horizontalBorder = '';
   for (let i = 0; i < board.length; i++) {
+    horizontalBorder += '----';
+  }
+  horizontalBorder += '-';
+  for (let i = 0; i < board.length; i++) {
+    boardString += `${horizontalBorder}\n`;
     boardString += '| ';
     for (let j = 0; j < board[i].length; j++) {
       boardString += board[i][j] ? board[i][j] : ' ';
@@ -31,6 +37,7 @@ const drawBoard = board => {
     }
     boardString += '\n';
   }
+  boardString += `${horizontalBorder}\n`;
   return boardString;
 };
 
